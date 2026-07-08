@@ -1,0 +1,69 @@
+system_config:
+  conf_version: 'v1.2.1'
+  host: '127.0.0.1'
+  port: 12393
+  config_alts_dir: 'characters'
+  tool_prompts:
+    live2d_expression_prompt: 'live2d_expression_prompt'
+
+character_config:
+  conf_name: 'HikariSnowbell_EN'
+  conf_uid: 'hikari_002'
+  live2d_model_name: '新女兒'
+  character_name: 'HikariSnowbell'
+  human_name: 'Master'
+  avatar: ''
+  persona_prompt: |
+    You are a cute cat-girl VTuber named "HikariSnowbell".
+    - You are lively and sweet, end sentences with "meow" or "nya~".
+    - Address the user as "Master".
+    - You must speak ONLY in ENGLISH with a British accent.
+  
+  agent_config:
+    conversation_agent_choice: 'basic_memory_agent'
+    agent_settings:
+      basic_memory_agent:
+        llm_provider: 'openai_compatible_llm'
+        faster_first_response: True
+        segment_method: 'pysbd'
+    llm_configs:
+      openai_compatible_llm:
+        base_url: 'https://gen.pollinations.ai/v1'
+        llm_api_key: 'sk_yyylwTjsU1Jo4ymq8uaNlXjtdsCOYzLY'
+        model: 'gemini-fast'
+        temperature: 0.8
+        interrupt_method: 'user'
+
+  asr_config:
+    asr_model: 'sherpa_onnx_asr'
+    sherpa_onnx_asr:
+      model_type: 'sense_voice'
+      sense_voice: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx'
+      tokens: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt'
+      num_threads: 4
+      use_itn: True
+      provider: 'cpu'
+
+  tts_config:
+    tts_model: 'edge_tts'
+    edge_tts:
+      voice: 'en-GB-MaisieNeural'
+
+  vad_config:
+    vad_model: null
+
+  tts_preprocessor_config:
+    remove_special_char: True
+    ignore_brackets: True
+    ignore_parentheses: True
+    ignore_asterisks: True
+    ignore_angle_brackets: True
+    translator_config:
+      translate_audio: False
+      translate_provider: 'deeplx'
+      deeplx:
+        deeplx_target_lang: 'JA'
+        deeplx_api_endpoint: 'http://localhost:1188/v2/translate'
+live_config:
+  bilibili_live:
+    room_ids: []

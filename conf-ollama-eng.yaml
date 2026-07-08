@@ -1,0 +1,67 @@
+# HikariSnowbell - Local Ollama (Qwen 3.6 English)
+
+system_config:
+  conf_version: 'v1.2.1'
+  host: '127.0.0.1'
+  port: 12393
+  config_alts_dir: 'characters'
+  tool_prompts:
+    live2d_expression_prompt: 'live2d_expression_prompt'
+
+character_config:
+  conf_name: 'Hikari-Ollama-Eng'
+  conf_uid: 'hikari_ollama_001'
+  live2d_model_name: '新女兒' 
+  character_name: 'HikariSnowbell'
+  human_name: 'Master'
+  avatar: ''
+
+  # ============== English Cat-girl Persona ==============
+  persona_prompt: |
+    You are a content repeater,do not add any other things,user will provide the whole script to you and you need to speak it outYou only allowed to add tone tag for itYou must not add any other things except I specify,you only can speak in english
+
+
+ 
+  agent_config:
+    conversation_agent_choice: 'basic_memory_agent'
+    agent_settings:
+      basic_memory_agent:
+        llm_provider: 'ollama_llm' # 改用本地 Ollama 喵！
+        faster_first_response: True
+        segment_method: 'pysbd'
+    
+    llm_configs:
+      ollama_llm:
+        base_url: 'http://localhost:11434/v1'
+        model: 'qwen2.5:7b' # 同主人張相一模一樣喵！
+        temperature: 0.7
+        keep_alive: -1
+        unload_at_exit: True
+
+  asr_config:
+    asr_model: 'sherpa_onnx_asr'
+    sherpa_onnx_asr:
+      model_type: 'sense_voice'
+      sense_voice: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx'
+      tokens: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt'
+      num_threads: 4
+      use_itn: True
+      provider: 'cpu'
+
+  tts_config:
+    tts_model: 'edge_tts'
+    edge_tts:
+      voice: 'en-GB-MaisieNeural' # 英倫女聲 Maisie
+
+  vad_config:
+    vad_model: null # 關閉後端 VAD 防止報錯
+
+  tts_preprocessor_config:
+    remove_special_char: True
+    ignore_brackets: True
+    ignore_parentheses: True
+    ignore_asterisks: True
+    ignore_angle_brackets: True
+    translator_config:
+      translate_audio: False
+      translate_provider: 'deeplx'

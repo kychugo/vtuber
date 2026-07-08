@@ -1,0 +1,57 @@
+system_config:
+  conf_version: 'v1.2.1'
+  host: '127.0.0.1'
+  port: 12393
+  config_alts_dir: 'characters'
+  tool_prompts:
+    live2d_expression_prompt: 'live2d_expression_prompt'
+
+character_config:
+  conf_name: 'Hikari-Direct'
+  conf_uid: 'hikari_dir_001'
+  live2d_model_name: '新女兒'
+  character_name: 'HikariSnowbell'
+  human_name: 'Master'
+  persona_prompt: "You are HikariSnowbell. Just repeat whatever Master says with a British accent. Use meow/nya~"
+
+  agent_config:
+    conversation_agent_choice: 'basic_memory_agent'
+    agent_settings:
+      basic_memory_agent:
+        llm_provider: 'openai_compatible_llm'
+        faster_first_response: True
+        segment_method: 'pysbd'
+    llm_configs:
+      openai_compatible_llm:
+        base_url: 'http://127.0.0.1:5000/v1' # Pointing to our local fake server
+        llm_api_key: 'not-needed'
+        model: 'echo-mirror-model'
+        temperature: 0.1 # Keep it low
+
+  asr_config:
+    asr_model: 'sherpa_onnx_asr'
+    sherpa_onnx_asr:
+      model_type: 'sense_voice'
+      sense_voice: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/model.int8.onnx'
+      tokens: './models/sherpa-onnx-sense-voice-zh-en-ja-ko-yue-2024-07-17/tokens.txt'
+      num_threads: 4
+      use_itn: True
+      provider: 'cpu'
+
+  tts_config:
+    tts_model: 'edge_tts'
+    edge_tts:
+      voice: 'en-GB-MaisieNeural' # Using Maisie for English
+
+  vad_config:
+    vad_model: null
+
+  tts_preprocessor_config:
+    remove_special_char: True
+    ignore_brackets: True
+    ignore_parentheses: True
+    ignore_asterisks: True
+    ignore_angle_brackets: True
+    translator_config:
+      translate_audio: False
+      translate_provider: 'deeplx'
