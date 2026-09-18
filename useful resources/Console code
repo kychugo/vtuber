@@ -1,0 +1,68 @@
+(function autoFillConfig() {
+  // Config targets
+  const WS_URL = 'wss://vtuber.hugow.dev/client-ws';
+  const BASE_URL = 'https://vtuber.hugow.dev';
+
+  // Helper to trigger state updates in frameworks like React/Vue
+  function setInputValue(inputEl, value) {
+    if (!inputEl) return;
+    const valueSetter = Object.getOwnPropertyDescriptor(inputEl, 'value')?.set;
+    const prototype = Object.getPrototypeOf(inputEl);
+    const prototypeValueSetter = Object.getOwnPropertyDescriptor(prototype, 'value')?.set;
+
+    if (prototypeValueSetter && valueSetter !== prototypeValueSetter) {
+      prototypeValueSetter.call(inputEl, value);
+    } else if (valueSetter) {
+      valueSetter.call(inputEl, value);
+    } else {
+      inputEl.value = value;
+    }
+    inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+    inputEl.dispatchEvent(new Event('change', { bubbles: true }));
+  }
+
+  // Find all form field containers
+  const labels = Array.from(document.querySelectorAll('label, div, span'));
+
+  labels.forEach(el => {
+    const text = el.textContent?.trim().toLowerCase() || '';
+
+    // Match WebSocket URL (WebSocket地址 / WebSocket URL)
+    if (text === 'websocket地址' || text === 'websocket url' || text === 'websocket') {
+      const input = el.nextElementSibling?.tagName === 'INPUT' 
+        ? el.nextElementSibling 
+        : el.parentElement?.querySelector('input');
+      if (input) {
+        setInputValue(input, WS_URL);
+        console.log('✅ Set WebSocket URL:', WS_URL);
+      }
+    }
+
+    // Match Base URL (基礎URL / 基础URL / Base URL)
+    if (text === '基礎url' || text === '基础url' || text === 'base url') {
+      const input = el.nextElementSibling?.tagName === 'INPUT' 
+        ? el.nextElementSibling 
+        : el.parentElement?.querySelector('input');
+      if (input) {
+        setInputValue(input, BASE_URL);
+        console.log('✅ Set Base URL:', BASE_URL);
+      }
+    }
+  });
+
+  // Auto-click Save/保存 button
+  setTimeout(() => {
+    const buttons = Array.from(document.querySelectorAll('button'));
+    const saveBtn = buttons.find(b => {
+      const txt = b.textContent?.trim().toLowerCase();
+      return txt === '保存' || txt === 'save';
+    });
+
+    if (saveBtn) {
+      saveBtn.click();
+      console.log('🚀 Clicked Save button!');
+    } else {
+      console.log('⚠️ Save button not found automatically.');
+    }
+  }, 300);
+})();
