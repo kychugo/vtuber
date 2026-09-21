@@ -55,6 +55,7 @@
 ---
 
 ## 2. 用家操作與常見問題故障排除
+<img width="1020" height="540" alt="image" src="https://github.com/user-attachments/assets/ab2b07c0-c829-4a27-8ae7-4bb73e3661ca" />
 
 ### 2.1 介面常用功能
 
