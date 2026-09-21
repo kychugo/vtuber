@@ -183,6 +183,8 @@
 
 衷心感謝所有在過程中給予協助、啟發與支持的每一位師長與夥伴！
 
+<img width="756" height="812" alt="image" src="https://github.com/user-attachments/assets/862434da-c5c4-4627-b679-f542a6d92fbb" />
+
 ---
 
 # 授權條款 (License)
